@@ -55,7 +55,15 @@ async function handleImageUpload(event) {
 
 // Função para realizar a predição
 async function predict(image) {
-  const prediction = await model.predict(image);
+  // Cria um canvas para o modelo processar a imagem
+  const canvas = document.createElement("canvas");
+  canvas.width = 200;
+  canvas.height = 200;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(image, 0, 0, 200, 200);
+
+  // Realiza a predição no canvas
+  const prediction = await model.predict(canvas);
 
   // Obtenha as probabilidades
   const comPneumoniaProb = (prediction[0].probability * 100).toFixed(2); // Probabilidade de pneumonia
