@@ -56,17 +56,14 @@ async function handleImageUpload(event) {
 // Função para realizar a predição
 async function predict(image) {
   const prediction = await model.predict(image);
-  let resultado;
 
-  // Considera que a classe 0 é "Sem Pneumonia" e a classe 1 é "Pneumonia"
-  if (prediction[0].probability > prediction[1].probability) {
-    resultado = "Pneumonia";
-  } else {
-    resultado = "Sem Pneumonia";
-  }
+  // Obtenha as probabilidades
+  const comPneumoniaProb = (prediction[0].probability * 100).toFixed(2); // Probabilidade de pneumonia
+  const semPneumoniaProb = (prediction[1].probability * 100).toFixed(2); // Probabilidade de sem pneumonia
 
-  // Exibe o resultado
-  labelContainer.childNodes[0].innerHTML = "Resultado: " + resultado;
+  // Exibe a porcentagem de cada classe
+  labelContainer.childNodes[0].innerHTML = `Pneumonia: ${comPneumoniaProb}%`;
+  labelContainer.childNodes[1].innerHTML = `Sem Pneumonia: ${semPneumoniaProb}%`;
 }
 
 // Inicializa o modelo ao carregar a página

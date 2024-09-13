@@ -11,7 +11,13 @@
       <h1>Modelo de Detecção de Pneumonia</h1>
     </header>
     <main>
-      <input type="file" id="image-upload" accept="image/*" />
+      <input
+        type="file"
+        id="upload-image"
+        accept="image/*"
+        onchange="handleImageUpload(event)"
+      />
+
       <div id="loading">Processando imagem...</div>
       <div id="image-container"></div>
       <div id="label-container"></div>
